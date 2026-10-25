@@ -1,6 +1,7 @@
 #!/bin/bash
 
-FILE="$HOME/expenses.txt"
+DIR="$(pwd)"
+FILE="$DIR/expenses.txt"
 
 case "$1" in
     add)
