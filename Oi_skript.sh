@@ -1,18 +1,18 @@
 #!/bin/bash
 
 DIR="$(pwd)"
-FILE="$DIR/expenses.txt"
+FILE="$DIR/$2"
 
 case "$1" in
     add)
-        echo "$(date +%F) $2 $3 $4" >> "$FILE"
+        echo "$(date +%F) $3 $4 $5" >> "$FILE"
         echo "added"
         ;;
     list)
         cat "$FILE"
         ;;
     *)
-        echo "usage: $0 add <category> <sum> <deskription>| $0 list"
+        echo "usage: $0 add <filename> <category> <sum> <deskription>| $0 list <filename>"
         ;;
 esac
 
