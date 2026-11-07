@@ -4,10 +4,10 @@
 #include <math.h>
 
 void bubble(int *arr, int n);
-void merge (int *arr, int n);
+int* merge (int *arr, int *buff, unsigned int r, unsigned int l);
 void inser (int *arr, int n);
 
-void random_filler (int *arr, int n){
+void fake_random_filler (int *arr, int n){
 	for (int i = 0; i<n; i++){
 		arr[i] = rand ();
 	}
@@ -35,7 +35,7 @@ int main () {
 			printf ("Array_error\n");
 			return 1;
 		}
-		random_filler (arr, n);
+		fake_random_filler (arr, n);
 		copy_arr (arr, arr_b, n);
 		copy_arr (arr, arr_m, n);
 		copy_arr (arr, arr_i, n);
@@ -45,7 +45,11 @@ int main () {
 		clock_t end = clock();
 		t_b = (double)(end - start) / CLOCKS_PER_SEC;
 		start = clock();
-		merge(arr_m, n);
+		int buff[n]
+		int *res = merge(arr_m, buff, 0, n-1);
+		/*for (int j = 0; j<n, j++){
+			printf ("%d\n", res [j]);
+		}*/
 		end = clock();
 		t_m = (double)(end - start) / CLOCKS_PER_SEC;
 		start = clock();
@@ -68,15 +72,18 @@ int main () {
 
 
 //сортировка слиянием
-void merge (int *arr, int n, unsigned int l, unsigned int r) {
-	int* down = (int *)malloc(n*sizeof(int));
+int* merge (int *arr, int *buff, unsigned int l, unsigned int r) {
+	int* down = (int *)malloc((r+1)*sizeof(int));
+	int* up = (int *)malloc((r+1)*sizeof(int));
 	if (l == r){
 		down[l] = up[l];
+		up[l] = arr[l];
+		free(up)
 		return down;
 	}
 	unsigned int middle = l+(r-l)/2;
-	int *l_buff = merge_sort(up, down, l, middle);
-	int *r_buff = merge_sort(up, down, middle+1, r);
+	int *l_buff = merge(up, down, l, middle);
+	int *r_buff = merge(up, down, middle+1, r);
 	// слияние двух отсортированных половин
 	int *target = l_buff == up ? down : up;
 	unsigned int l_cur = l, r_cur = middle + 1;
