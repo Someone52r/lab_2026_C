@@ -1,3 +1,5 @@
 #include "bar.h"
 
-int main
+int main () {
+
+}
